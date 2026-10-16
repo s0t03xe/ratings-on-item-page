@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ratings on Item Page · Explorations</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <h1 class="sr-only">Ratings on Item Page · Express Pod explorations</h1>
+
+    <div class="tabs" role="tablist" aria-label="Ratings explorations" id="tabs"></div>
+    <div class="variants" role="tablist" aria-label="Concepts" id="variants" hidden></div>
+
+    <p class="desc" id="desc" aria-live="polite"></p>
+
+    <div class="stage" id="stage">
+      <div class="phone-wrap" id="phoneWrap">
+        <div class="phone" id="phone" role="tabpanel"></div>
+      </div>
+    </div>
+
+    <label class="hint-toggle">
+      <input type="checkbox" id="hints"> Show tap targets
+    </label>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

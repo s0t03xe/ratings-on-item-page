@@ -1,0 +1,72 @@
+:root {
+  --blue: #0053e2;
+  --text: #2e2f32;
+  --muted: #5c5f62;
+  --bg: #f4f5f7;
+  --phone-w: 375px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--text); font-family: "Everyday Sans UI", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+.app { max-width: 880px; margin: 0 auto; padding: 12px 16px 12px; display: flex; flex-direction: column; align-items: center; }
+
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+.tabs, .variants { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; width: 100%; }
+.variants { margin-top: 8px; flex-wrap: nowrap; gap: 6px; justify-content: safe center; overflow-x: auto; scrollbar-width: none; }
+.variants::-webkit-scrollbar { display: none; }
+.tabs[hidden], .variants[hidden] { display: none; }
+.tab {
+  appearance: none; border: 0; cursor: pointer; font: inherit; font-weight: 700; font-size: 15px;
+  padding: 0 20px; height: 44px; min-width: 96px; border-radius: 999px; background: #fff; color: var(--text);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.04);
+}
+.tab[aria-selected="true"] { background: var(--blue); color: #fff; }
+.tab:focus-visible, .hotspot:focus-visible, .hint-toggle input:focus-visible { outline: 3px solid #7aa7ff; outline-offset: 2px; }
+.variants .tab { flex: none; height: 36px; min-width: 0; white-space: nowrap; font-size: 13px; padding: 0 12px; }
+
+.desc:empty { display: none; }
+.desc { min-height: 20px; max-width: 640px; text-align: center; font-size: 14px; line-height: 20px; color: var(--muted); margin: 8px 0 0; }
+
+.stage { margin-top: 10px; width: 100%; display: flex; justify-content: center; }
+.phone-wrap { transform-origin: top center; }
+.phone {
+  position: relative; width: var(--phone-w); height: var(--phone-h, 812px); overflow: hidden; background: #fff;
+  border-radius: 28px; box-shadow: 0 0 0 1px rgba(0,0,0,.08), 0 16px 48px rgba(0,0,0,.16); isolation: isolate;
+}
+
+.screen { position: absolute; inset: 0; background: #fff; }
+.scroll { position: absolute; left: 0; right: 0; bottom: 0; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.scroll::-webkit-scrollbar { display: none; }
+.content { position: relative; width: var(--phone-w); }
+.content > img.body { display: block; width: var(--phone-w); height: 100%; user-select: none; -webkit-user-drag: none; }
+.pin { position: absolute; left: 0; width: var(--phone-w); pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.pin.top { top: 0; }
+.pin.bottom { bottom: 0; }
+
+.hotspot { position: absolute; appearance: none; border: 0; padding: 0; margin: 0; background: transparent; cursor: pointer; border-radius: 8px; }
+.hints .hotspot { background: rgba(0, 83, 226, .18); outline: 2px dashed rgba(0, 83, 226, .7); outline-offset: -2px; }
+
+.layer { position: absolute; inset: 0; background: #fff; transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+.layer.reviews { transform: translateX(100%); }
+.layer.reviews.on { transform: translateX(0); }
+.layer.sheet-layer { background: transparent; pointer-events: none; visibility: hidden; transition: visibility 0s linear .3s; }
+.layer.sheet-layer.on { pointer-events: auto; visibility: visible; transition-delay: 0s; }
+.scrim { position: absolute; inset: 0; background: rgba(0,0,0,.5); opacity: 0; transition: opacity .3s ease; border: 0; padding: 0; cursor: pointer; }
+.sheet-layer.on .scrim { opacity: 1; }
+.sheet {
+  position: absolute; left: 0; right: 0; bottom: 0; top: 82px; background: #fff; border-radius: 16px 16px 0 0; overflow: hidden;
+  transform: translateY(100%); transition: transform .3s cubic-bezier(.2,.7,.2,1);
+}
+.sheet-layer.on .sheet { transform: translateY(0); }
+.sheet .scroll { top: 0; }
+.sheet .sheet-head { position: absolute; left: 0; top: 0; width: var(--phone-w); height: 56px; z-index: 2; pointer-events: none; }
+.sheet .sheet-shadow { position: absolute; left: 0; right: 0; top: 56px; height: 10px; z-index: 2; pointer-events: none; opacity: 0; transition: opacity .15s; background: linear-gradient(rgba(0,0,0,.08), rgba(0,0,0,0)); }
+.sheet.scrolled .sheet-shadow { opacity: 1; }
+.sheet .close { z-index: 3; }
+
+.hint-toggle { margin-top: 8px; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); cursor: pointer; }
+.hint-toggle input { width: 18px; height: 18px; accent-color: var(--blue); }
+
+@media (prefers-reduced-motion: reduce) {
+  .layer, .sheet, .scrim { transition: none; }
+}
